@@ -1,46 +1,34 @@
-$.get( "data.txt", function( response ) {
-  console.log( response );
+$.get("data.txt", function (response) {
+    console.log(response);
     $("p").load("data.txt");
 });
 
-$(document).ready(function(){
-      $.getJSON("http://www.colourlovers.com/api/palette/1930?jsonCallback=?",      
-function(colorPalettes) { 
-      
-var textColor = colorPalettes[0].colors[2];
-var textColor2 = colorPalettes[0].colors[4];
-var textColor3 = colorPalettes[0].colors[2];
+$(document).ready(function () {
+    $.getJSON("http://www.colourlovers.com/api/palette/1930?jsonCallback=?",
+        function (colorPalettes) {
+            printColors(colorPalettes);
+        });
+    function printColors(colorPalettes) {
+        for (var palette in colorPalettes) {
 
-var backgroundColor = colorPalettes[0].colors[0];
-var backgroundColor2 = colorPalettes[0].colors[2];
-var backgroundColor3 = colorPalettes[0].colors[4];
-      
-    $("button").on('click',function() {
-        $("p").css("color", "#" + textColor);
-            $("body").css({ backgroundColor:"#" + backgroundColor });
+            console.log(colorPalettes[palette].colors[0]);
+            console.log(colorPalettes[palette].colors[1]);
+            console.log(colorPalettes[palette].colors[2]);
+            console.log(colorPalettes[palette].colors[3]);
+            console.log(colorPalettes[palette].colors[4]);
 
-    $("button").on('click',function() {
-       $("p").css("color", "#" + textColor2);
-           $("body").css({ backgroundColor:"#" + backgroundColor2 });
+            var currentcolor = 0;
+            var colors = colorPalettes[palette].colors[0];
 
-     $("button").on('click',function() {
-        $("p").css("color", "#" + textColor3);
-            $("body").css({ backgroundColor:"#" + backgroundColor3 });
-            
-     $("button").on('click',function() {
-            location.reload();
-                   
-});
-});
-});
-});
-});
-});
-      
+            $("button").on("click", function () {
+                $("p").css("color", "#" + colors[currentcolor]);
+                currentcolor++;
 
-   
-       
+                if (currentcolor > colors.length - 1) {
+                    currentcolor = 0;
+                };
+            });
+        };
+    };
+});
      
-
-   
-  
