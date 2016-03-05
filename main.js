@@ -17,18 +17,37 @@ $(document).ready(function () {
             console.log(colorPalettes[palette].colors[3]);
             console.log(colorPalettes[palette].colors[4]);
 
-            var currentcolor = 0;
-            var colors = colorPalettes[palette].colors[0];
+            $(document).ready(function () {
 
-            $("button").on("click", function () {
-                $("p").css("color", "#" + colors[currentcolor]);
-                currentcolor++;
+                var colors = "#" + colorPalettes[palette].colors[0];
+                var colors1 = "#" + colorPalettes[palette].colors[1];
+                var colors2 = "#" + colorPalettes[palette].colors[2];
+                var colors3 = "#" + colorPalettes[palette].colors[3];
+                var colors4 = "#" + colorPalettes[palette].colors[4];
+                
+                var array = [colors, colors1, colors2, colors3, colors4,];
+                var counter = 0;
+                var nextColor;
+                var timer;
 
-                if (currentcolor > colors.length - 1) {
-                    currentcolor = 0;
-                };
+                $("#startb").on("click", function () {
+                    function colorchange() {
+                        counter = (counter + 1) % array.length;
+                        nextColor = array[counter];
+                        $("p").css("color", nextColor);
+                    };
+
+                    timer = setInterval(colorchange, 1000);
+
+                    $("#stopb").on("click", function () {
+                        clearInterval(timer);
+                        counter = 0;
+
+
+                    });
+                });
             });
         };
     };
 });
-     
+                
